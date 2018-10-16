@@ -1,0 +1,65 @@
+类 （在myApp文件夹下的models.py文件中）
+
+学生Student	用户名	username
+		密码	password
+问题Problem	内容	content
+		属于那个学生	belong
+		赞数	cainum
+		踩数	zannum
+回答Answer	内容	content
+		属于那个问题	belong
+		赞数	cainum
+		踩数	zannum
+
+函数（在myApp文件夹下的views.py文件中）
+
+注册 registered	创建用户名和密码 存入数据库
+		输入 用户名（字符串）	密码（字符串）
+		输出	无
+
+登录 	logIn	在数据库中查找匹配的用户名和密码
+		输入 用户名（字符串）	密码（字符串）
+		输出 Student类的该用户（如果成功匹配）
+	     	False（没有成功匹配上）
+
+输入问题inProblem	输入 内容（字符串）	学生（Student类）
+			输出 问题（Problem类）
+
+输入答案inAnswer		输入 内容（字符串）	问题（Problem类）
+			输出 答案（Answer类）
+
+给问题点赞zanProblem	输入 问题（Problem类）
+
+给问题点踩caiProblem	输入 问题（Problem类）
+
+给答案点赞zanAnswer	输入 答案（Answer类）
+
+给答案点踩caiAnswer	输入 答案 （Answer类）
+
+查询问题内容searchProblem	输入 问题（Problem类）
+				输出 内容（字符串）
+
+查询答案内容searchAnser	输入 答案（Answer类）
+			输出 内容（字符串）
+
+查询问题赞数searchProblemZanNum	输入 问题（Problem类）
+				输出 赞数（int）
+
+查询问题踩数searchProblemCaiNum	输入 问题（Problem类）
+				输出 踩数（int）
+
+查询答案赞数searchAnswerZanNum	输入 答案（Answer类）
+				输出 赞数（int）
+
+查询答案踩数searchAnswerCaiNum	输入 答案（Answer类）
+				输出 踩数（int）
+
+获得一个学生的问题列表getProblem	输入 学生（Student类）
+				输出 该学生提出的问题列表（Problem类列表）
+
+获得一个问题的答案列表getAnswer	输入 问题（Problem类）
+				输出 该问题的答案列表（Answer类列表）
+
+
+
+	
