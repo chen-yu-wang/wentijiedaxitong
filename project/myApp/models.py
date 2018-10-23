@@ -16,3 +16,4 @@ class Answer(models.Model):
     belong = models.ForeignKey("Problem")
     zannum = models.IntegerField(default=0)
     cainum = models.IntegerField(default=0)
+    belongs =  models.ForeignKey("Student")

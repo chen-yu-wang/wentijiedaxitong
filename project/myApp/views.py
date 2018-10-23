@@ -6,8 +6,14 @@ from django.shortcuts import render
 from .models import Student, Problem, Answer
 
 def registered ( um ,pw ):
+    st = Student.objects.all()
+    n = len(st)
+    for i in range(n):
+        if um == st[i]:
+            return False
     student1 = Student(username = um,password = pw)
     student1.save()
+    return True
 
 def logIn (um,pw):
     st = Student.objects.all()
@@ -27,8 +33,8 @@ def inProblem(pro,stu):
     pro1.save()
     return pro1
 
-def inAnswer(ans,pro):
-    ans1 = Answer(content = ans, belong = pro)
+def inAnswer(ans,pro,stu):
+    ans1 = Answer(content = ans, belong = pro, belongs = stu)
     ans1.save()
     return ans1
 
@@ -59,11 +65,14 @@ def searchProblemCaiNum(pro):
 def searchAnswerZanNum(ans):
     return ans.zannum
 
-def SearchAnswerCaiNum(ans):
+def searchAnswerCaiNum(ans):
     return ans.cainum
 
 def getProblem(stu):
     return stu.problem_set.all()
 
-def getAnswer(pro):
+def getAnswerOfProblem(pro):
     return pro.answer_set.all()
+
+def getAnswerOfStudent(stu):
+    return stu.problem_set.all()
