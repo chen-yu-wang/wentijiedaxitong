@@ -1,64 +1,64 @@
-Àà £¨ÔÚmyAppÎÄ¼þ¼ÐÏÂµÄmodels.pyÎÄ¼þÖÐ£©
+ï»¿ç±» ï¼ˆåœ¨myAppæ–‡ä»¶å¤¹ä¸‹çš„models.pyæ–‡ä»¶ä¸­ï¼‰
 
-Ñ§ÉúStudent	ÓÃ»§Ãû	username
-		ÃÜÂë	password
-ÎÊÌâProblem	ÄÚÈÝ	content
-		ÊôÓÚÄÇ¸öÑ§Éú	belong
-		ÔÞÊý	cainum
-		²ÈÊý	zannum
-»Ø´ðAnswer	ÄÚÈÝ	content
-		ÊôÓÚÄÇ¸öÎÊÌâ	belong
-		ÔÞÊý	cainum
-		²ÈÊý	zannum
+å­¦ç”ŸStudent	ç”¨æˆ·å	username
+		å¯†ç 	password
+é—®é¢˜Problem	å†…å®¹	content
+		å±žäºŽé‚£ä¸ªå­¦ç”Ÿ	belong
+		èµžæ•°	cainum
+		è¸©æ•°	zannum
+å›žç­”Answer	å†…å®¹	content
+		å±žäºŽé‚£ä¸ªé—®é¢˜	belong
+		èµžæ•°	cainum
+		è¸©æ•°	zannum
 
-º¯Êý£¨ÔÚmyAppÎÄ¼þ¼ÐÏÂµÄviews.pyÎÄ¼þÖÐ£©
+å‡½æ•°ï¼ˆåœ¨myAppæ–‡ä»¶å¤¹ä¸‹çš„views.pyæ–‡ä»¶ä¸­ï¼‰
 
-×¢²á registered	´´½¨ÓÃ»§ÃûºÍÃÜÂë ´æÈëÊý¾Ý¿â
-		ÊäÈë ÓÃ»§Ãû£¨×Ö·û´®£©	ÃÜÂë£¨×Ö·û´®£©
-		Êä³ö	ÎÞ
+æ³¨å†Œ registered	åˆ›å»ºç”¨æˆ·åå’Œå¯†ç  å­˜å…¥æ•°æ®åº“
+		è¾“å…¥ ç”¨æˆ·åï¼ˆå­—ç¬¦ä¸²ï¼‰	å¯†ç ï¼ˆå­—ç¬¦ä¸²ï¼‰
+		è¾“å‡º	æ— 
 
-µÇÂ¼ 	logIn	ÔÚÊý¾Ý¿âÖÐ²éÕÒÆ¥ÅäµÄÓÃ»§ÃûºÍÃÜÂë
-		ÊäÈë ÓÃ»§Ãû£¨×Ö·û´®£©	ÃÜÂë£¨×Ö·û´®£©
-		Êä³ö StudentÀàµÄ¸ÃÓÃ»§£¨Èç¹û³É¹¦Æ¥Åä£©
-	     	False£¨Ã»ÓÐ³É¹¦Æ¥ÅäÉÏ£©
+ç™»å½• 	logIn	åœ¨æ•°æ®åº“ä¸­æŸ¥æ‰¾åŒ¹é…çš„ç”¨æˆ·åå’Œå¯†ç 
+		è¾“å…¥ ç”¨æˆ·åï¼ˆå­—ç¬¦ä¸²ï¼‰	å¯†ç ï¼ˆå­—ç¬¦ä¸²ï¼‰
+		è¾“å‡º Studentç±»çš„è¯¥ç”¨æˆ·ï¼ˆå¦‚æžœæˆåŠŸåŒ¹é…ï¼‰
+	     	Falseï¼ˆæ²¡æœ‰æˆåŠŸåŒ¹é…ä¸Šï¼‰
 
-ÊäÈëÎÊÌâinProblem	ÊäÈë ÄÚÈÝ£¨×Ö·û´®£©	Ñ§Éú£¨StudentÀà£©
-			Êä³ö ÎÊÌâ£¨ProblemÀà£©
+è¾“å…¥é—®é¢˜inProblem	è¾“å…¥ å†…å®¹ï¼ˆå­—ç¬¦ä¸²ï¼‰	å­¦ç”Ÿï¼ˆStudentç±»ï¼‰
+			è¾“å‡º é—®é¢˜ï¼ˆProblemç±»ï¼‰
 
-ÊäÈë´ð°¸inAnswer		ÊäÈë ÄÚÈÝ£¨×Ö·û´®£©	ÎÊÌâ£¨ProblemÀà£©
-			Êä³ö ´ð°¸£¨AnswerÀà£©
+è¾“å…¥ç­”æ¡ˆinAnswer		è¾“å…¥ å†…å®¹ï¼ˆå­—ç¬¦ä¸²ï¼‰	é—®é¢˜ï¼ˆProblemç±»ï¼‰
+			è¾“å‡º ç­”æ¡ˆï¼ˆAnswerç±»ï¼‰
 
-¸øÎÊÌâµãÔÞzanProblem	ÊäÈë ÎÊÌâ£¨ProblemÀà£©
+ç»™é—®é¢˜ç‚¹èµžzanProblem	è¾“å…¥ é—®é¢˜ï¼ˆProblemç±»ï¼‰
 
-¸øÎÊÌâµã²ÈcaiProblem	ÊäÈë ÎÊÌâ£¨ProblemÀà£©
+ç»™é—®é¢˜ç‚¹è¸©caiProblem	è¾“å…¥ é—®é¢˜ï¼ˆProblemç±»ï¼‰
 
-¸ø´ð°¸µãÔÞzanAnswer	ÊäÈë ´ð°¸£¨AnswerÀà£©
+ç»™ç­”æ¡ˆç‚¹èµžzanAnswer	è¾“å…¥ ç­”æ¡ˆï¼ˆAnswerç±»ï¼‰
 
-¸ø´ð°¸µã²ÈcaiAnswer	ÊäÈë ´ð°¸ £¨AnswerÀà£©
+ç»™ç­”æ¡ˆç‚¹è¸©caiAnswer	è¾“å…¥ ç­”æ¡ˆ ï¼ˆAnswerç±»ï¼‰
 
-²éÑ¯ÎÊÌâÄÚÈÝsearchProblem	ÊäÈë ÎÊÌâ£¨ProblemÀà£©
-				Êä³ö ÄÚÈÝ£¨×Ö·û´®£©
+æŸ¥è¯¢é—®é¢˜å†…å®¹searchProblem	è¾“å…¥ é—®é¢˜ï¼ˆProblemç±»ï¼‰
+				è¾“å‡º å†…å®¹ï¼ˆå­—ç¬¦ä¸²ï¼‰
 
-²éÑ¯´ð°¸ÄÚÈÝsearchAnser	ÊäÈë ´ð°¸£¨AnswerÀà£©
-			Êä³ö ÄÚÈÝ£¨×Ö·û´®£©
+æŸ¥è¯¢ç­”æ¡ˆå†…å®¹searchAnser	è¾“å…¥ ç­”æ¡ˆï¼ˆAnswerç±»ï¼‰
+			è¾“å‡º å†…å®¹ï¼ˆå­—ç¬¦ä¸²ï¼‰
 
-²éÑ¯ÎÊÌâÔÞÊýsearchProblemZanNum	ÊäÈë ÎÊÌâ£¨ProblemÀà£©
-				Êä³ö ÔÞÊý£¨int£©
+æŸ¥è¯¢é—®é¢˜èµžæ•°searchProblemZanNum	è¾“å…¥ é—®é¢˜ï¼ˆProblemç±»ï¼‰
+				è¾“å‡º èµžæ•°ï¼ˆintï¼‰
 
-²éÑ¯ÎÊÌâ²ÈÊýsearchProblemCaiNum	ÊäÈë ÎÊÌâ£¨ProblemÀà£©
-				Êä³ö ²ÈÊý£¨int£©
+æŸ¥è¯¢é—®é¢˜è¸©æ•°searchProblemCaiNum	è¾“å…¥ é—®é¢˜ï¼ˆProblemç±»ï¼‰
+				è¾“å‡º è¸©æ•°ï¼ˆintï¼‰
 
-²éÑ¯´ð°¸ÔÞÊýsearchAnswerZanNum	ÊäÈë ´ð°¸£¨AnswerÀà£©
-				Êä³ö ÔÞÊý£¨int£©
+æŸ¥è¯¢ç­”æ¡ˆèµžæ•°searchAnswerZanNum	è¾“å…¥ ç­”æ¡ˆï¼ˆAnswerç±»ï¼‰
+				è¾“å‡º èµžæ•°ï¼ˆintï¼‰
 
-²éÑ¯´ð°¸²ÈÊýsearchAnswerCaiNum	ÊäÈë ´ð°¸£¨AnswerÀà£©
-				Êä³ö ²ÈÊý£¨int£©
+æŸ¥è¯¢ç­”æ¡ˆè¸©æ•°searchAnswerCaiNum	è¾“å…¥ ç­”æ¡ˆï¼ˆAnswerç±»ï¼‰
+				è¾“å‡º è¸©æ•°ï¼ˆintï¼‰
 
-»ñµÃÒ»¸öÑ§ÉúµÄÎÊÌâÁÐ±ígetProblem	ÊäÈë Ñ§Éú£¨StudentÀà£©
-				Êä³ö ¸ÃÑ§ÉúÌá³öµÄÎÊÌâÁÐ±í£¨ProblemÀàÁÐ±í£©
+èŽ·å¾—ä¸€ä¸ªå­¦ç”Ÿçš„é—®é¢˜åˆ—è¡¨getProblem	è¾“å…¥ å­¦ç”Ÿï¼ˆStudentç±»ï¼‰
+				è¾“å‡º è¯¥å­¦ç”Ÿæå‡ºçš„é—®é¢˜åˆ—è¡¨ï¼ˆProblemç±»åˆ—è¡¨ï¼‰
 
-»ñµÃÒ»¸öÎÊÌâµÄ´ð°¸ÁÐ±ígetAnswer	ÊäÈë ÎÊÌâ£¨ProblemÀà£©
-				Êä³ö ¸ÃÎÊÌâµÄ´ð°¸ÁÐ±í£¨AnswerÀàÁÐ±í£©
+èŽ·å¾—ä¸€ä¸ªé—®é¢˜çš„ç­”æ¡ˆåˆ—è¡¨getAnswer	è¾“å…¥ é—®é¢˜ï¼ˆProblemç±»ï¼‰
+				è¾“å‡º è¯¥é—®é¢˜çš„ç­”æ¡ˆåˆ—è¡¨ï¼ˆAnswerç±»åˆ—è¡¨ï¼‰
 
 
 
