@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<!-- saved from url=(0048)http://v3.bootcss.com/examples/navbar-fixed-top/ -->
+<html lang="zh-CN"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="http://v3.bootcss.com/favicon.ico">
+
+    <title>提问加分系统</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="/static/bootstrap/css/navbar-fixed-top.css" rel="stylesheet">
+    <link href="/static/bootstrap/css/custom.css" rel="stylesheet">
+    {% block head-js %}
+    {% endblock %}
+  </head>
+
+  <body>
+
+    <!-- Fixed navbar -->
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="http://v3.bootcss.com/examples/navbar-fixed-top/#">提问评分</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li ><a href="{% url 'index' %}">综合区</a></li>
+            <li><a href="{% url 'category' 1 %}">1区</a></li>
+            <li><a href="{% url 'category' 2 %}">2区</a></li>
+            <li><a href="{% url 'category' 3 %}">3区</a></li>
+
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+
+               {% if request.user.is_authenticated %}
+                <li class="dropdown">
+                  <a href="http://v3.bootcss.com/examples/navbar-fixed-top/#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ request.user.userprofile.name }} <span class="caret"></span></a>
+                  <ul class="dropdown-menu">
+                    <li><a href="{% url 'new_article' %}">发贴</a></li>
+                    <li><a href="http://v3.bootcss.com/examples/navbar-fixed-top/#">Another action</a></li>
+                    <li><a href="http://v3.bootcss.com/examples/navbar-fixed-top/#">Something else here</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li class="dropdown-header">Nav header</li>
+                    <li><a href="http://v3.bootcss.com/examples/navbar-fixed-top/#">Separated link</a></li>
+                    <li><a href="{% url 'logout' %}">注销</a></li>
+                  </ul>
+                </li>
+               {% else %}
+                 <li><a href="{% url 'login'%}">注册\登录</a></li>
+               {% endif %}
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+    <div class="container">
+     {% block page-container %}
+        <div class="row">
+            <div class="col-md-8 left-content-panel">
+                <div class="content-box">
+                    {% for article in articles reversed %}
+                        <div class="article-box row">
+                            <div class="article-head-img col-md-3">
+                                <img src="{{ article.head_img }}">
+                            </div>
+                            <div class="article-summary col-md-8">
+                                <h4><a href="{% url 'article_detail' article.id %}">{{ article.title }}</a></h4>
+                                <div class="article-attr">
+                                    <ul  class="list-inline">
+                                        <li>{{ article.author.name }}</li>
+                                        <li>{{ article.publish_date }}</li>
+                                        <li>赞{{ article.good_num }}</li>
+                                        <li>踩{{ article.bad_num }}</li>
+                                        <li>comments:{{ article.comment_set.select_related.count }}</li>
+                                    </ul>
+                                </div>
+                                <p>{{ article.summary }}</p>
+                            </div>
+                        </div>
+                         <hr >
+                    {% endfor %}
+
+                </div>
+            </div>
+            <div class="col-md-4 right-sidebar">
+                bar
+            </div>
+        </div>
+     {% endblock %}
+        </ul>                                                        {#从此处开始为新增#}
+        <ul class="pagination" id="pager">
+            {#上一页按钮开始#}
+            {# 如果当前页有上一页#}
+            {% if articles.has_previous %}
+                {#  当前页的上一页按钮正常使用#}
+                <li>
+                    <a href="?page={{articles.previous_page_number}}" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+            {% endif %}
+            {#上一页按钮结束#}
+            {# 页码开始#}
+            {% for pg in articles.paginator.page_range %}
+
+                {% if articles.number == pg %}
+                    <li class="active"><a href="?page={{ pg }}">{{ pg }}</a></li>
+                {% else %}
+                    <li><a href="?page={{ pg }}">{{ pg }}</a></li>
+
+                {% endif %}
+            {% endfor %}
+            {#页码结束#}
+            {# 下一页按钮开始#}
+            {% if articles.has_next %}
+                <li>
+                    <a href="?page={{articles.next_page_number}}" aria-label="Next">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+            {% endif %}
+            {# 下一页按钮结束#}
+        </ul>                                                                {#到此新增结束#}
+    </div> <!-- /container -->
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="/static/bootstrap/js/jquery-2.1.4.js"></script>
+    <script src="/static/bootstrap/js/bootstrap.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="/static/bootstrap/js/ie10-viewport-bug-workaround.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            var menus = $("#navbar a[href='{{ request.path }}']")[0];
+            $(menus).parent().addClass("active");
+            $(menus).parent().siblings().removeClass("active");
+            //console.log(menus);
+        });
+
+    </script>
+
+    {% block bottom-js %}
+   {% endblock %}
+</body></html>
