@@ -69,19 +69,23 @@
 					</div>
 					<div class="col-xs-10 text-right menu-1">
 						<ul>
-							<li class="active"><a href="{% url 'question_and_answer:index'%}">Home</a></li>
+							<li><a href="{% url 'question_and_answer:index'%}">Home</a></li>
 							<li><a href="{% url 'question_and_answer:category'%}">Question</a></li>
 							<li><a href="{% url 'question_and_answer:ask'%}">Ask</a></li>
-							<li class="has-dropdown">
-								<a >User</a>
-								<ul class="dropdown">
-									<li><a href="{% url 'question_and_answer:profile' %}">个人信息</a></li>
-									<li><a href="{% url 'question_and_answer:myquestions' %}">我的问题</a></li>
-									<li><a href="{% url 'question_and_answer:notice' %}">通知与私信</a></li>
-									<li><a href="{% url 'question_and_answer:logout'%}">退出登录</a></li>
-								</ul>
-							</li>
-							<li class="btn-cta"><a href="{% url 'question_and_answer:login'%}"><span>Login</span></a></li>
+							<li><a href="{% url 'question_and_answer:about' %}">About</a></li>
+                             {% if is_logged_in %}
+                                <li class="has-dropdown active" >
+                                    <a href="{% url 'question_and_answer:profile' %}">{{ username }}</a>
+                                    <ul class="dropdown">
+                                        <li><a href="{% url 'question_and_answer:profile' %}">个人信息</a></li>
+                                        <li><a href="{% url 'question_and_answer:myquestions' %}">我的问题</a></li>
+                                        <li><a href="{% url 'question_and_answer:logout' %}">退出登录</a></li>
+                                    </ul>
+                                </li>
+                            {% else %}
+                                <li class="active"><a href="{% url 'question_and_answer:register' %}">Register</a></li>
+                                <li class="btn-cta"><a href="{% url 'question_and_answer:login' %}"><span>Login</span></a></li>
+                            {% endif %}
 						</ul>
 					</div>
 				</div>
@@ -104,13 +108,25 @@
 							<div class="item">
 								<div class="testimony-slide active text-center">
 									<div class="user" style="background-image: url({% static 'images/person1.jpg' %});"></div>
-									<span>杨小猪<br><small>头衔：至尊星耀</small></span>
-									<blockquote>
-										<p>邮箱：hahahahahahaha<br />电话：12345678<br />学校：上海交通大学<br />专业：信息安全<br />总讨论数：22<br />总提问数：5<br />被赞数：48<br />被踩数：6</p>
+									<span>{{ user.username }}</span>
+									{% if identity == 'student' %}
+                                    <blockquote>
+										<p>邮箱：{{ user.email }}<br />
+                                            电话：{{ user.student.phone }}<br />
+                                            学校：{{ user.student.univ }}<br />
+                                            专业：{{ user.student.major }}<br />
+                                            总讨论数：{{ user.answers.all | length }}<br />
+                                            总提问数：{{ user.questions.all | length }}<br />
+                                        </p>
 									</blockquote>
-									<div class="form-group">
-							        <input type="submit" value="修改个人信息" class="btn btn-primary">
-						            </div>
+                                    {% else %}
+                                        <p>邮箱：{{ user.email }}<br />
+                                            学校：{{ user.teacher.univ }}<br />
+                                            专业：{{ user.teacher.major }}<br />
+                                            总讨论数：{{ user.answers.all | length }}<br />
+                                            总提问数：{{ user.questions.all | length }}<br />
+                                        </p>
+                                    {% endif %}
 								</div>
 							</div>
 					</div>

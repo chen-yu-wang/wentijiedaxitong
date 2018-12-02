@@ -11,8 +11,6 @@ class Profile(models.Model):
     picture = models.ImageField(upload_to = 'profile_pictures')
     class Meta:
         db_table = "profile"
-    def __str__(self):
-        return self.student.user.username
 
 class Student(models.Model):
     '''

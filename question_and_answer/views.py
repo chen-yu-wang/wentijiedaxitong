@@ -1,14 +1,15 @@
 # -*- coding: utf-8 -*-
 
 from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponseRedirect
 from django.urls import reverse
-from django.utils import timezone
 from django.contrib import auth
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from .forms import RegistrationForm, LoginForm, AskForm, AnswerForm, ProfileForm
 from .models import *
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
 
 def index(request):
     try:
@@ -86,22 +87,72 @@ def questionsOrder1(request, category_id):
         username = '未登录'
         is_logged_in = False
     question_list = Question.objects.filter(question_category__number=category_id).order_by('-pub_date')[:20]
+    paginator = Paginator(question_list,5)
+    page_num = request.GET.get('page',1)
+    page_of_questions = paginator.get_page(page_num)
+    current_page_num = page_of_questions.number
+
+    page_range = list(range(max(current_page_num - 2, 1), current_page_num)) + list(
+        range(current_page_num, min(current_page_num + 2, paginator.num_pages) +1))
+    #page_range = list(range())
+    if page_range[0] - 1 >= 2:
+        page_range.insert(0, '...')
+    if page_range[-1] <= paginator.num_pages-2:
+        page_range.insert(len(page_range), '...')
+        #page_range.append(paginator.num_pages)
+    if page_range[0] != 1:
+        page_range.insert(0, 1)
+    if page_range[-1] != paginator.num_pages:
+        page_range.append(paginator.num_pages)
+    question_list = paginator.page(page_num)
+
     context = {
-        'question_list':question_list,
-        'category':Category.objects.get(number=category_id),
+        'question_list': question_list,
+        'category': Category.objects.get(number=category_id),
         'username': username,
         'is_logged_in': is_logged_in,
+        'page_of_questions': page_of_questions,
+        'page_range': page_range,
     }
     return render(request, 'question_and_answer/questionsOrder1.html', context)
 
-
 def questionsOrder2(request, category_id):
+    if request.user.is_authenticated:
+        username = request.user.username
+        is_logged_in = True
+    else:
+        username = '未登录'
+        is_logged_in = False
     question_list = Question.objects.filter(question_category__number=category_id).order_by('-grade')[:20]
+    paginator = Paginator(question_list,5)
+    page_num = request.GET.get('page',1)
+    page_of_questions = paginator.get_page(page_num)
+    current_page_num = page_of_questions.number
+
+    page_range = list(range(max(current_page_num - 2, 1), current_page_num)) + list(
+        range(current_page_num, min(current_page_num + 2, paginator.num_pages) +1))
+    #page_range = list(range())
+    if page_range[0] - 1 >= 2:
+        page_range.insert(0, '...')
+    if page_range[-1] <= paginator.num_pages-2:
+        page_range.insert(len(page_range), '...')
+        #page_range.append(paginator.num_pages)
+    if page_range[0] != 1:
+        page_range.insert(0, 1)
+    if page_range[-1] != paginator.num_pages:
+        page_range.append(paginator.num_pages)
+    question_list = paginator.page(page_num)
+
     context = {
-        'question_list':question_list,
-        'category':Category.objects.get(number=category_id),
+        'question_list': question_list,
+        'category': Category.objects.get(number=category_id),
+        'username': username,
+        'is_logged_in': is_logged_in,
+        'page_of_questions': page_of_questions,
+        'page_range': page_range,
     }
     return render(request, 'question_and_answer/questionsOrder2.html', context)
+
 
 def detail(request, id):
     '''
@@ -214,10 +265,11 @@ def ask(request):
                 question_text=question_text,
             )
             question.save()
-            return render(request, 'question_and_answer/ask2.html', {})
+            return HttpResponseRedirect(reverse('question_and_answer:detail', args=(question.id,)))
         else:
             context['askMessage'] = "您的输入含有非法字符, 请重试!"
-            return
+            form = AskForm()
+
     else:
         form = AskForm()
         context['form'] = form
@@ -302,17 +354,35 @@ def about(request):
 
 @login_required(login_url='qa/login/')
 def profile(request):
-    return render(request, 'question_and_answer/profile.html')
 
-@login_required(login_url='qa/login/')
-def notice(request):
-    return render(request, 'question_and_answer/notice.html')
+    username = request.user.username
+    is_logged_in = True
+    user = User.objects.get(username=username)
+    try:
+        student = user.student
+        identity = 'student'
+    except:
+        teacher = user.teacher
+        identity = 'teacher'
+    context = {
+        'user': request.user,
+        'username': username,
+        'identity': identity,
+        'is_logged_in': is_logged_in,
+    }
+    return render(request, 'question_and_answer/profile.html', context)
 
 @login_required(login_url='qa/login/')
 def myquestions(request):
-    return render(request, 'question_and_answer/myquestions.html')
-
-@login_required(login_url='qa/login/')
-def modification(request):
-    return render(request, 'question_and_answer/modification.html')
+    username = request.user.username
+    is_logged_in = True
+    context = {
+        'username': username,
+        'is_logged_in': is_logged_in,
+    }
+    questions = request.user.questions.all()
+    answers = request.user.answers.all()
+    context['questions'] = questions
+    context['answers'] = answers
+    return render(request, 'question_and_answer/myquestions.html', context)
 

@@ -64,24 +64,24 @@
 
 <div id="page">
     <nav class="fh5co-nav" role="navigation">
-        <div class="top-menu">
-            <div class="container">
-                <div class="row">
-                    <div class="col-xs-2">
-                        <div id="fh5co-logo"><a href="{% url 'question_and_answer:index'%}"><i class="icon-study"></i>Educ<span>.</span></a></div>
-                    </div>
-                    <div class="col-xs-10 text-right menu-1">
-                        <ul>
-                            <li><a href="{% url 'question_and_answer:index'%}">Home</a></li>
-                            <li class="active"><a href="{% url 'question_and_answer:category'%}">Question</a></li>
-                            <li><a href="{% url 'question_and_answer:ask'%}">Ask</a></li>
-                            {% if is_logged_in %}
+		<div class="top-menu">
+			<div class="container">
+				<div class="row">
+					<div class="col-xs-2">
+						<div id="fh5co-logo"><a href="{% url 'question_and_answer:index'%}"><i class="icon-study"></i>Educ<span>.</span></a></div>
+					</div>
+					<div class="col-xs-10 text-right menu-1">
+						<ul>
+							<li><a href="{% url 'question_and_answer:index'%}">Home</a></li>
+							<li class="active"><a href="{% url 'question_and_answer:category'%}">Question</a></li>
+							<li><a href="{% url 'question_and_answer:ask'%}">Ask</a></li>
+							<li><a href="{% url 'question_and_answer:about' %}">About</a></li>
+                             {% if is_logged_in %}
                                 <li class="has-dropdown">
                                     <a href="{% url 'question_and_answer:profile' %}">{{ username }}</a>
                                     <ul class="dropdown">
                                         <li><a href="{% url 'question_and_answer:profile' %}">个人信息</a></li>
                                         <li><a href="{% url 'question_and_answer:myquestions' %}">我的问题</a></li>
-                                        <li><a href="{% url 'question_and_answer:notice' %}">通知与私信</a></li>
                                         <li><a href="{% url 'question_and_answer:logout' %}">退出登录</a></li>
                                     </ul>
                                 </li>
@@ -89,12 +89,12 @@
                                 <li><a href="{% url 'question_and_answer:register' %}">Register</a></li>
                                 <li class="btn-cta"><a href="{% url 'question_and_answer:login' %}"><span>Login</span></a></li>
                             {% endif %}
-                        </ul>
-                    </div>
-                </div>
+						</ul>
+					</div>
+				</div>
 
-            </div>
-        </div>
+			</div>
+		</div>
     </nav>
 
     <aside id="fh5co-hero">
@@ -152,9 +152,9 @@
                                                 <span class="date">{{ question.pub_date | date:"F j, Y" }}</span>
                                                 <span class="category">{{ question.question_category.name }}</span>
                                                 <span class="comments">{{ question.answers.all | length }} Comments</span>
+                                                <span class="comment">&ensp;{{ question.bad_num }}<i class="icon-thumbs-down"></i></span>
 
-                                                <span class="comment"><a href="">&ensp;{{ question.good_num }}<i class="icon-thumbs-up"></i></a></span>
-                                                <span class="comment"><a href="">&ensp; {{ question.bad_num }}<i class="icon-thumbs-down"></i></a></span>
+                                                <span class="comment">&ensp;{{ question.good_num }}<i class="icon-thumbs-up"></i></span>
                                             </div>
                                         </header>
                                         <p>{{ question.question_text | truncatechars:"30" }}...</p>
@@ -169,6 +169,44 @@
     </div>
 
     <!--此处应有分页器-->
+<!--此处应有分页器-->
+    <div class="text-center">
+    <ul class="pagination" >
+    <li>
+        {# 上一页 #}
+        {% if page_of_questions.has_previous %}
+            <a href="?page={{ page_of_questions.previous_page_number }}" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        {% else %}
+            <span aria-hidden="true">&laquo;</span>
+        {% endif %}
+    </li>
+        {# 页码 #}
+        {% for page_num in page_range %}
+            {% if page_num == page_of_questions.number %}
+                <li class="active"><a href="?page={{ page_num }}">{{ page_num }}</a></li>
+            {% else %}
+                {% if page_num == '...' %}
+                    <li><span>{{ page_num }}</span></li>
+                {% else %}
+                    <li><a href="?page={{ page_num }}">{{ page_num }}</a></li>
+                {% endif %}
+
+            {% endif %}
+        {% endfor %}
+    <li>
+        {# 下一页 #}
+        {% if page_of_questions.has_next %}
+            <a href="?page={{ page_of_questions.next_page_number }}" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+         {% else %}
+            <span aria-hidden="true">&raquo;</span>
+         {% endif %}
+    </li>
+    </ul>
+    </div>>
 
     <footer id="fh5co-footer" role="contentinfo" style="background-image: url({% static 'images/img_bg_4.jpg' %});">
         <div class="overlay"></div>
