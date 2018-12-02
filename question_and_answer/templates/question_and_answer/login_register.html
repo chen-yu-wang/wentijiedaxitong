@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="zh">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Or Register</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'css/jigsaw.css' %}">
+    <style>
+
+        #msg {
+            width: 100%;
+            line-height: 40px;
+            font-size: 14px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<div class="jq22-container" style="padding-top:100px">
+    <div class="login-wrap">
+        <div class="login-html">
+            <input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">登录</label>
+            <input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab">注册</label>
+            <div class="login-form">
+
+                <form action="{% url 'question_and_answer:login' %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                    <div class="sign-in-htm">
+                        {% for field in loginForm %}
+                            <div class="group">
+                                 <label class="label">{{ field.errors }}</label>
+                                <label class="label"> {{ field.label_tag }}</label>{{ field }}
+                            </div>
+                        {% endfor %}
+                        <div class="group">
+                            <div class="container">
+                                <div id="captcha" style="position: relative" data-type="password"></div>
+                                <div id="msg"></div>
+                            </div>
+                        </div>
+                        {{ loginMessage }}
+
+                        <div class="hr"></div>
+                        <div class="group">
+                            <input name="login" type="submit" class="button" value="登录" disabled="disabled">
+                        </div>
+						<div class="foot-lnk">
+							<a href="/admin/">管理员登录</a>
+						</div>
+                    </div>
+                </form>
+                <form action="{% url 'question_and_answer:register' %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                    <div class="sign-up-htm">
+
+                        {% for field in registrationForm %}
+                            <div class="group">
+                                <label class="label">{{ field.errors }}</label>
+                                <label class="label"> {{ field.label_tag }}</label>{{ field }}
+                            </div>
+                        {% endfor %}
+                        {{ registerMessage }}
+                        <div class="group">
+                            <input type="submit" class="button" value="注册">
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+</div>
+<script src="{% static 'js/jigsaw.js' %}"></script>
+<script>
+    var flag = false;
+    jigsaw.init(document.getElementById('captcha'), function () {
+        flag = true;
+        $("input[name=login]").removeAttr("disabled");
+        document.getElementById('msg').innerHTML = '验证成功！'
+    })
+</script>
+<!-- jQuery -->
+<script src="{% static 'js/jquery.min.js' %}"></script>
+
+</body>
+</html>
